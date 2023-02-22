@@ -17,13 +17,7 @@ import './index.css';
 
   class Board extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            squares: Array(9).fill(null),
-            xIsNext: true,
-        };
-    }
+  
 
     handleClick(i) {
         const squares = this.state.squares.slice();
@@ -40,8 +34,8 @@ import './index.css';
     renderSquare(i) {
       return (
       <Square 
-      value={this.state.squares[i]}
-      onClick={() => this.handleClick(i)}
+      value={this.props.squares[i]}
+      onClick={() => this.props.onClick(i)}
       />
       );
     }
@@ -80,14 +74,28 @@ import './index.css';
   }
   
   class Game extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            history: [{
+                squares: Array(9).fill(null),
+            }],
+            xIsNext: true,
+        };
+    }
+
     render() {
       return (
         <div className="game">
           <div className="game-board">
-            <Board />
+            <Board 
+            squares={ current.squares }
+            onClick= {(i) => this.handleClick(i)}
+            />
           </div>
           <div className="game-info">
-            <div>{/* status */}</div>
+            <div>{status}</div>
             <ol>{/* TODO */}</ol>
           </div>
         </div>
