@@ -14,23 +14,24 @@ import './index.css';
     }
 
 
-   
-    
-  
-  
+
   class Board extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            squares: Array(9).fill(null)
+            squares: Array(9).fill(null),
+            xIsNext: true,
         };
     }
 
     handleClick(i) {
         const squares = this.state.squares.slice();
-        squares[i] = 'X';
-        this.setState({squares: squares});
+        squares[i] = this.state.xIsNext ? 'X' : 'O';
+        this.setState({
+            squares: squares,
+        xIsNext: !this.state.xIsNext,
+        })
     }
 
     renderSquare(i) {
